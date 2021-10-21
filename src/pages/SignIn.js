@@ -27,7 +27,7 @@ export default function SignIn({setUser}) {
         postLoginInfo(email, password)
         .then(res => {
             setUser(res.data);
-            history.push(`/revenue`);
+            history.push(`/transactions`);
             setLoading(false);
             saveLogInInfo();
         })

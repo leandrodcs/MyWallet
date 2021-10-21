@@ -1,15 +1,17 @@
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Entries from "./pages/Entries";
-import Revenue from "./pages/Revenue";
+import Transaction from "./pages/Transaction";
+import Transactions from "./pages/Transactions";
 
 import { createGlobalStyle } from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useState } from "react";
 import UserContext from "./contexts/UserContext";
+import TransactionContext from "./contexts/TransactionContext";
 
 export default function App() {
   const [user, setUser] = useState(null);
+  const [incomeOrOutcome, setIncomeOrOutcome] = useState("");
 
   return (
     <UserContext.Provider value={user}>
@@ -18,8 +20,10 @@ export default function App() {
         <Switch>
           <Route exact path="/" render={() => <SignIn setUser={setUser}/>}/>
           <Route exact path="/sign-up" render={() => <SignUp />}/>
-          <Route exact path="/revenue" render={() => <Revenue />}/>
-          <Route exact path="/entries" render={() => <Entries />}/>
+          <TransactionContext.Provider value={{incomeOrOutcome, setIncomeOrOutcome}}>
+            <Route exact path="/transactions" render={() => <Transactions />}/>
+            <Route exact path="/transaction" render={() => <Transaction />}/>
+          </TransactionContext.Provider>
         </Switch>
       </Router>
     </UserContext.Provider>
