@@ -6,20 +6,23 @@ import Revenue from "./pages/Revenue";
 import { createGlobalStyle } from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useState } from "react";
+import UserContext from "./contexts/UserContext";
 
 export default function App() {
   const [user, setUser] = useState(null);
 
   return (
-    <Router>
-      <GlobalReset />
-      <Switch>
-        <Route exact path="/" render={() => <SignIn setUser={setUser}/>}/>
-        <Route exact path="/sign-up" render={() => <SignUp />}/>
-        <Route exact path="/revenue" render={() => <Revenue />}/>
-        <Route exact path="/entries" render={() => <Entries />}/>
-      </Switch>
-    </Router>
+    <UserContext.Provider value={user}>
+      <Router>
+        <GlobalReset />
+        <Switch>
+          <Route exact path="/" render={() => <SignIn setUser={setUser}/>}/>
+          <Route exact path="/sign-up" render={() => <SignUp />}/>
+          <Route exact path="/revenue" render={() => <Revenue />}/>
+          <Route exact path="/entries" render={() => <Entries />}/>
+        </Switch>
+      </Router>
+    </UserContext.Provider>
   );
 }
 
