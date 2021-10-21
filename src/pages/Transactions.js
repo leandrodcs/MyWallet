@@ -2,11 +2,20 @@ import styled from "styled-components";
 import { MdOutlineLogout } from 'react-icons/md';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 import { useHistory } from "react-router";
+import TransactionContext from "../contexts/TransactionContext";
+import { useContext } from "react";
 
 export default function Transactions() {
     const history = useHistory();
+    const {setIncomeOrOutcome} = useContext(TransactionContext);
 
-    function relocate() {
+    function relocate(whichTransaction) {
+        if(whichTransaction) {
+            setIncomeOrOutcome(true);
+        }
+        else {
+            setIncomeOrOutcome(false);
+        }
         history.push(`/transaction`);
     }
     return (
@@ -21,11 +30,11 @@ export default function Transactions() {
                 </EmptyMsg>
             </Revenue>
             <MakeTransactions>
-                <button onClick={relocate}>
+                <button onClick={() => relocate(true)}>
                     <AiOutlinePlusCircle />
                     <p>Nova<br/> entrada</p>
                 </button>
-                <button onClick={relocate}>
+                <button onClick={() => relocate(false)}>
                     <AiOutlineMinusCircle />
                     <p>Nova<br/> saída</p>
 
