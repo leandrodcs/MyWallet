@@ -1,15 +1,23 @@
-import { createGlobalStyle } from "styled-components";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Wallet from "./pages/wallet";
+import Revenue from "./pages/revenue";
+
+import { createGlobalStyle } from "styled-components";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useState } from "react";
 
 export default function App() {
+  const [user, setUser] = useState(null);
+
   return (
     <Router>
       <GlobalReset />
       <Switch>
-        <Route exact path="/sign-in" render={() => <SignIn />}/>
+        <Route exact path="/sign-in" render={() => <SignIn setUser={setUser}/>}/>
         <Route exact path="/sign-up" render={() => <SignUp />}/>
+        <Route exact path="/wallet" render={() => <Wallet />}/>
+        <Route exact path="/entries" render={() => <Revenue />}/>
       </Switch>
     </Router>
   );
