@@ -29,7 +29,7 @@ export default function SignUp() {
         registerUser(name, email, password)
         .then(res => {
             alert("Seu cadastro foi realizado com sucesso!");
-            history.push(`/sign-in`);
+            history.push(`/`);
             setLoading(false);
         })
         .catch(err => {
@@ -42,13 +42,13 @@ export default function SignUp() {
         <Wrapper>
             <Title>MyWallet</Title>
             <Form onSubmit={register}>
-                <Input loading={loading} type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome" />
-                <Input loading={loading} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-mail" />
-                <Input loading={loading} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Senha" />
-                <Input loading={loading} type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirma a senha" />
-                <Button loading={loading} type="submit">{loading ? <Loader type="ThreeDots" color="#FFFFFF" height={13} /> : `Cadastrar`}</Button>
+                <Input load={loading} type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome" />
+                <Input load={loading} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-mail" />
+                <Input load={loading} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Senha" />
+                <Input load={loading} type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirma a senha" />
+                <Button load={loading} type="submit">{loading ? <Loader type="ThreeDots" color="#FFFFFF" height={13} /> : `Cadastrar`}</Button>
             </Form>
-            <Link to="sign-in">Primeira vez? Cadastre-se!</Link>
+            <Link to="/">Primeira vez? Cadastre-se!</Link>
         </Wrapper>
     );
 }

@@ -1,4 +1,4 @@
-export default function Wallet() {
+export default function Entries() {
     return (
         <>
         </>

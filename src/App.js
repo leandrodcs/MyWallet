@@ -1,7 +1,7 @@
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Wallet from "./pages/wallet";
-import Revenue from "./pages/revenue";
+import Entries from "./pages/Entries";
+import Revenue from "./pages/Revenue";
 
 import { createGlobalStyle } from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -14,10 +14,10 @@ export default function App() {
     <Router>
       <GlobalReset />
       <Switch>
-        <Route exact path="/sign-in" render={() => <SignIn setUser={setUser}/>}/>
+        <Route exact path="/" render={() => <SignIn setUser={setUser}/>}/>
         <Route exact path="/sign-up" render={() => <SignUp />}/>
-        <Route exact path="/wallet" render={() => <Wallet />}/>
-        <Route exact path="/entries" render={() => <Revenue />}/>
+        <Route exact path="/revenue" render={() => <Revenue />}/>
+        <Route exact path="/entries" render={() => <Entries />}/>
       </Switch>
     </Router>
   );

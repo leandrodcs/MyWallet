@@ -6,13 +6,13 @@ import Form from "../components/SignInUpstyles/Form";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { postLoginInfo } from "../service/service";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import Loader from "react-loader-spinner";
 
 export default function SignIn({setUser}) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState(localStorage.getItem("email") || "");
+    const [password, setPassword] = useState(localStorage.getItem("password") || "");
     const [loading, setLoading] = useState(false);
     const history = useHistory();
 
@@ -22,12 +22,12 @@ export default function SignIn({setUser}) {
       }
 
     function login(e) {
-        e.preventDefault();
+        if (e) e.preventDefault();
         setLoading(true);
         postLoginInfo(email, password)
         .then(res => {
             setUser(res.data);
-            history.push(`/wallet`);
+            history.push(`/revenue`);
             setLoading(false);
             saveLogInInfo();
         })
@@ -36,13 +36,19 @@ export default function SignIn({setUser}) {
             setLoading(false);
         });
     }
+
+    useEffect(() => {
+        if(!email && !password) return;
+        login();
+    }, []);
+
     return (
         <Wrapper>
             <Title>MyWallet</Title>
             <Form onSubmit={login}>
-                <Input loading={loading} type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="E-mail" />
-                <Input loading={loading} type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha" />
-                <Button loading={loading} type="submit">{loading ? <Loader type="ThreeDots" color="#FFFFFF" height={13} /> : `Entrar`}</Button>
+                <Input load={loading} type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="E-mail" />
+                <Input load={loading} type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha" />
+                <Button load={loading} type="submit">{loading ? <Loader type="ThreeDots" color="#FFFFFF" height={13} /> : `Entrar`}</Button>
             </Form>
             <Link to="sign-up">Primeira vez? Cadastre-se!</Link>
         </Wrapper>
