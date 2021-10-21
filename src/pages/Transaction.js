@@ -6,22 +6,32 @@ import { useContext, useEffect, useState } from "react";
 import { MdOutlineLogout } from 'react-icons/md';
 import TransactionContext from "../contexts/TransactionContext";
 import styled from "styled-components";
+import { useHistory } from "react-router";
 
 export default function Entries() {
     const {incomeOrOutcome} = useContext(TransactionContext);
     const [value, setValue] = useState(null);
     const [description, setDescription] = useState("");
+    const history = useHistory();
+
+    function relcate() {
+        history.push(`/transactions`);
+    }
+
+    function declareTransaction(e) {
+        e.preventDefault();
+    }
 
     return (
         <Wrapper>
             <Header>
-                <button><MdOutlineLogout /></button>
+                <button onClick={relcate}><MdOutlineLogout /></button>
                 <p>Nova {incomeOrOutcome?`entrada`:`saída`}</p>
             </Header>
-            <Form>
+            <Form onSubmit={declareTransaction}>
                 <Input type="number" value={value} onChange={e => setValue(e.target.value)} placeholder="Valor"/>
                 <Input type="text" value={description} onChange={e => setDescription(e.target.value)} placeholder="Descrição"/>
-                <Button>Salvar {incomeOrOutcome?`entrada`:`saída`}</Button>
+                <Button type="submit">Salvar {incomeOrOutcome?`entrada`:`saída`}</Button>
             </Form>
 
         </Wrapper>

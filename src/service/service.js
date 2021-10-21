@@ -28,7 +28,12 @@ function postLoginInfo(email, password) {
     return axios.post(`${BASIC_URL}/sign-in`, body);
 }
 
+function getTransactions(token) {
+    return axios.get(`${BASIC_URL}/transactions`, createConfig(token));
+}
+
 export {
     registerUser,
     postLoginInfo,
+    getTransactions,
 }

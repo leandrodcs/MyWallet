@@ -12,7 +12,7 @@ import TransactionContext from "./contexts/TransactionContext";
 export default function App() {
   const [user, setUser] = useState(null);
   const [incomeOrOutcome, setIncomeOrOutcome] = useState(null);
-
+  console.log(user);
   return (
     <UserContext.Provider value={user}>
       <Router>

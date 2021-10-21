@@ -3,11 +3,17 @@ import { MdOutlineLogout } from 'react-icons/md';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 import { useHistory } from "react-router";
 import TransactionContext from "../contexts/TransactionContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { getTransactions } from "../service/service";
+import UserContext from "../contexts/UserContext";
+import Movement from "../components/Movement";
 
 export default function Transactions() {
+    const [transactions, setTransactions] = useState([]);
+    const [loading, setLoading] = useState(true);
     const history = useHistory();
     const {setIncomeOrOutcome} = useContext(TransactionContext);
+    const userInfo = useContext(UserContext);
 
     function relocate(whichTransaction) {
         if(whichTransaction) {
@@ -18,6 +24,26 @@ export default function Transactions() {
         }
         history.push(`/transaction`);
     }
+
+    useEffect(() => {
+        getTransactions(userInfo.token)
+        .then(res => {
+            setTransactions(res.data);
+            setLoading(false);
+        })
+        .catch(err => {
+            console.log(err);
+            setLoading(false);
+        })
+    }, []);
+
+    if(loading) {
+        return (
+            <>
+            Loading...
+            </>
+        )
+    }
     return (
         <Wrapper>
             <Header>
@@ -25,9 +51,12 @@ export default function Transactions() {
                 <button><MdOutlineLogout /></button>
             </Header>
             <Revenue>
+                {transactions.length ? 
+                transactions.map(({date, description, value}) => <Movement date={date} description={description} value={value}/>)
+                :
                 <EmptyMsg>
-                    Não há registros de entrada ou saída
-                </EmptyMsg>
+                Não há registros de entrada ou saída
+                </EmptyMsg>}
             </Revenue>
             <MakeTransactions>
                 <button onClick={() => relocate(true)}>
@@ -90,6 +119,9 @@ const Revenue = styled.section`
     background: #FFFFFF;
     border-radius: 5px;
     position: relative;
+    padding: 20px 12px 20px 12px;
+    gap: 10px;
+    overflow-y: scroll;
 `;
 
 const Wrapper = styled.main`
