@@ -1,25 +1,46 @@
-import Input from "../components/SignInUpstyles/Input";
-import Button from "../components/SignInUpstyles/Button";
-import Form from "../components/SignInUpstyles/Form";
+import Input from "../components/Input";
+import Button from "../components/Button";
+import Form from "../components/Form";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { MdOutlineLogout } from 'react-icons/md';
 import TransactionContext from "../contexts/TransactionContext";
+import UserContext from "../contexts/UserContext";
 import styled from "styled-components";
 import { useHistory } from "react-router";
+import { postTransaction } from "../service/service";
 
 export default function Entries() {
     const {incomeOrOutcome} = useContext(TransactionContext);
-    const [value, setValue] = useState(null);
+    const userInfo = useContext(UserContext);
+    const [value, setValue] = useState("");
     const [description, setDescription] = useState("");
     const history = useHistory();
 
     function relcate() {
         history.push(`/transactions`);
-    }
+    }    
 
     function declareTransaction(e) {
         e.preventDefault();
+        const formatedValue = incomeOrOutcome ? value : value * -1;
+        postTransaction(userInfo.token, description, formatedValue)
+        .then(res => {
+            setValue("");
+            setDescription("");
+            history.push(`/transactions`);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
+    function updateTransaction(e) {
+        console.log(e);
+        if(e.target.value.length > 10) {
+            return;
+        }
+        setValue(e.target.value);
     }
 
     return (
@@ -29,7 +50,7 @@ export default function Entries() {
                 <p>Nova {incomeOrOutcome?`entrada`:`saída`}</p>
             </Header>
             <Form onSubmit={declareTransaction}>
-                <Input type="number" value={value} onChange={e => setValue(e.target.value)} placeholder="Valor"/>
+                <Input type="number" value={value} onChange={updateTransaction} placeholder="Valor"/>
                 <Input type="text" value={description} onChange={e => setDescription(e.target.value)} placeholder="Descrição"/>
                 <Button type="submit">Salvar {incomeOrOutcome?`entrada`:`saída`}</Button>
             </Form>

@@ -1,7 +1,7 @@
-import Input from "../components/SignInUpstyles/Input";
-import Button from "../components/SignInUpstyles/Button";
+import Input from "../components/Input";
+import Button from "../components/Button";
 import Title from "../components/SignInUpstyles/Title";
-import Form from "../components/SignInUpstyles/Form";
+import Form from "../components/Form";
 
 import { Link } from "react-router-dom";
 import styled from "styled-components";

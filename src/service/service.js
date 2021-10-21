@@ -32,8 +32,17 @@ function getTransactions(token) {
     return axios.get(`${BASIC_URL}/transactions`, createConfig(token));
 }
 
+function postTransaction(token, description, value) {
+    const body = {
+        description,
+        value
+    }
+    return axios.post(`${BASIC_URL}/transactions`, body, createConfig(token));
+}
+
 export {
     registerUser,
     postLoginInfo,
     getTransactions,
+    postTransaction,
 }

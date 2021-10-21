@@ -35,7 +35,7 @@ export default function Transactions() {
             console.log(err);
             setLoading(false);
         })
-    }, []);
+    }, [userInfo.token]);
 
     if(loading) {
         return (
@@ -52,7 +52,7 @@ export default function Transactions() {
             </Header>
             <Revenue>
                 {transactions.length ? 
-                transactions.map(({date, description, value}) => <Movement date={date} description={description} value={value}/>)
+                transactions.map(({date, description, value}, index) => <Movement key={index} date={date} description={description} value={value}/>)
                 :
                 <EmptyMsg>
                 Não há registros de entrada ou saída
