@@ -15,6 +15,7 @@ export default function Entries() {
     const userInfo = useContext(UserContext);
     const [value, setValue] = useState("");
     const [description, setDescription] = useState("");
+    const [loading, setLoading] = useState(false);
     const history = useHistory();
 
     function relcate() {
@@ -23,15 +24,18 @@ export default function Entries() {
 
     function declareTransaction(e) {
         e.preventDefault();
+        setLoading(true);
         const formatedValue = incomeOrOutcome ? value : value * -1;
         postTransaction(userInfo.token, description, formatedValue)
         .then(res => {
             setValue("");
             setDescription("");
             history.push(`/transactions`);
+            setLoading(false);
         })
         .catch(err => {
-            console.log(err);
+            alert(err);
+            setLoading(false);
         })
     }
 
@@ -50,9 +54,9 @@ export default function Entries() {
                 <p>Nova {incomeOrOutcome?`entrada`:`saída`}</p>
             </Header>
             <Form onSubmit={declareTransaction}>
-                <Input type="number" value={value} onChange={updateTransaction} placeholder="Valor"/>
-                <Input type="text" value={description} onChange={e => setDescription(e.target.value)} placeholder="Descrição"/>
-                <Button type="submit">Salvar {incomeOrOutcome?`entrada`:`saída`}</Button>
+                <Input load={loading} type="number" value={value} onChange={updateTransaction} placeholder="Valor"/>
+                <Input load={loading} type="text" value={description} onChange={e => setDescription(e.target.value)} placeholder="Descrição"/>
+                <Button load={loading} type="submit">Salvar {incomeOrOutcome?`entrada`:`saída`}</Button>
             </Form>
 
         </Wrapper>

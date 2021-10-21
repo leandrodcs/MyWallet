@@ -2,10 +2,10 @@ import axios from "axios";
 
 const BASIC_URL = `http://localhost:4000`;
 
-function createConfig(userToken) {
+function createConfig(token) {
     const config = {
         headers: {
-            Authorization: `Bearer ${userToken}`
+            Authorization: `Bearer ${token}`
         }
     }
     return config;

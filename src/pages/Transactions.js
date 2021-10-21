@@ -47,7 +47,7 @@ export default function Transactions() {
     return (
         <Wrapper>
             <Header>
-                <p>Olá, Fulano</p>
+                <p>Olá, {userInfo.name}</p>
                 <button><MdOutlineLogout /></button>
             </Header>
             <Revenue>
