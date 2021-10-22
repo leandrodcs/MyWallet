@@ -26,6 +26,11 @@ export default function Transactions() {
         history.push(`/transaction`);
     }
 
+    function logOff() {
+        localStorage.clear();
+        history.push(`/`);
+    }
+
     function calculateTotal(transactions) {
         let sum = 0;
         transactions.forEach(t => sum+= Number(t.value));
@@ -56,7 +61,7 @@ export default function Transactions() {
         <Wrapper>
             <Header>
                 <p>Olá, {userInfo.name}</p>
-                <button><MdOutlineLogout /></button>
+                <button onClick={logOff}><MdOutlineLogout /></button>
             </Header>
             <Revenue>
                 {transactions.length ?
@@ -66,7 +71,7 @@ export default function Transactions() {
                     </List>
                     <Total total={total}>
                         <span>SALDO</span>
-                        <span>{String(total).replace('.',',')}</span>
+                        <span>{String(total).replace('.',',').split(`-`)[1]}</span>
                     </Total>
                 </>
                 :

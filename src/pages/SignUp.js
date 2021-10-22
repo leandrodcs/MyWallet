@@ -33,7 +33,7 @@ export default function SignUp() {
             setLoading(false);
         })
         .catch(err => {
-            console.log(err);
+            alert(err);
             setLoading(false);
         });
     }

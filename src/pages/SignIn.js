@@ -34,7 +34,7 @@ export default function SignIn({setUser}) {
             saveLogInInfo(res.data);
         })
         .catch(err => {
-            console.log(err);
+            alert(err);
             setLoading(false);
         });
     }
