@@ -10,7 +10,10 @@ import UserContext from "./contexts/UserContext";
 import TransactionContext from "./contexts/TransactionContext";
 
 export default function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    name: localStorage.getItem("name") || "",
+    token: localStorage.getItem("token") || "",
+  });
   const [incomeOrOutcome, setIncomeOrOutcome] = useState(null);
   console.log(user);
   return (

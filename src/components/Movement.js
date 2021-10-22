@@ -14,7 +14,7 @@ export default function Movement({date, description, value}) {
     );
 }
 
-const Item = styled.p`
+const Item = styled.div`
     display: flex;
     justify-content: space-between;
     line-height: 25px;

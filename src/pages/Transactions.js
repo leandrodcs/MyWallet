@@ -119,7 +119,7 @@ const Revenue = styled.section`
     background: #FFFFFF;
     border-radius: 5px;
     position: relative;
-    padding: 20px 12px 20px 12px;
+    padding: 20px 12px 40px 12px;
     gap: 10px;
     overflow-y: scroll;
 `;

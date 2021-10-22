@@ -16,9 +16,11 @@ export default function SignIn({setUser}) {
     const [loading, setLoading] = useState(false);
     const history = useHistory();
 
-    function saveLogInInfo() {
+    function saveLogInInfo(userInfoToStore) {
         localStorage.setItem("email", email);
         localStorage.setItem("password", password);
+        localStorage.setItem("token", userInfoToStore.token);
+        localStorage.setItem("name", userInfoToStore.name);
       }
 
     function login(e) {
@@ -29,7 +31,7 @@ export default function SignIn({setUser}) {
             setUser(res.data);
             history.push(`/transactions`);
             setLoading(false);
-            saveLogInInfo();
+            saveLogInInfo(res.data);
         })
         .catch(err => {
             console.log(err);
