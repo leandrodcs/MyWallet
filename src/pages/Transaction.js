@@ -34,7 +34,7 @@ export default function Entries() {
             setLoading(false);
         })
         .catch(err => {
-            alert(err);
+            alert(err.response.data);
             setLoading(false);
         })
     }

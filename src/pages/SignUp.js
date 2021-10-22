@@ -20,11 +20,11 @@ export default function SignUp() {
 
     function register(e) {
         e.preventDefault();
-        setLoading(true);
-
         if(password !== confirmPassword) {
             return alert("Os campos da senha devem ser iguais, tente novamente.");
         }
+        setLoading(true);
+
 
         registerUser(name, email, password)
         .then(res => {
@@ -33,7 +33,7 @@ export default function SignUp() {
             setLoading(false);
         })
         .catch(err => {
-            alert(err);
+            alert(err.response.data);
             setLoading(false);
         });
     }

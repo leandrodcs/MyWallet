@@ -15,7 +15,6 @@ export default function App() {
     token: localStorage.getItem("token") || "",
   });
   const [incomeOrOutcome, setIncomeOrOutcome] = useState(null);
-  console.log(user);
   return (
     <UserContext.Provider value={user}>
       <Router>

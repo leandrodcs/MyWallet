@@ -4,7 +4,7 @@ import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 import { useHistory } from "react-router";
 import TransactionContext from "../contexts/TransactionContext";
 import { useContext, useEffect, useState } from "react";
-import { getTransactions } from "../service/service";
+import { getTransactions, signOut } from "../service/service";
 import UserContext from "../contexts/UserContext";
 import Movement from "../components/Movement";
 
@@ -27,8 +27,14 @@ export default function Transactions() {
     }
 
     function logOff() {
-        localStorage.clear();
-        history.push(`/`);
+        signOut(userInfo.token)
+        .then(res => {
+            localStorage.clear();
+            history.push(`/`);
+        })
+        .catch(err => {
+            alert(err.response.data);
+        });
     }
 
     function calculateTotal(transactions) {
@@ -45,7 +51,7 @@ export default function Transactions() {
             setLoading(false);
         })
         .catch(err => {
-            console.log(err);
+            alert(err.response.data);
             setLoading(false);
         })
     }, [userInfo.token]);

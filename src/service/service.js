@@ -28,6 +28,10 @@ function postLoginInfo(email, password) {
     return axios.post(`${BASIC_URL}/sign-in`, body);
 }
 
+function signOut(token) {
+    return axios.delete(`${BASIC_URL}/sign-out`, createConfig(token));
+}
+
 function getTransactions(token) {
     return axios.get(`${BASIC_URL}/transactions`, createConfig(token));
 }
@@ -45,4 +49,5 @@ export {
     postLoginInfo,
     getTransactions,
     postTransaction,
+    signOut,
 }
