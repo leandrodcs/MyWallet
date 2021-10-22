@@ -11,6 +11,7 @@ import Movement from "../components/Movement";
 export default function Transactions() {
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [total, setTotal] = useState(0);
     const history = useHistory();
     const {setIncomeOrOutcome} = useContext(TransactionContext);
     const userInfo = useContext(UserContext);
@@ -25,10 +26,17 @@ export default function Transactions() {
         history.push(`/transaction`);
     }
 
+    function calculateTotal(transactions) {
+        let sum = 0;
+        transactions.forEach(t => sum+= Number(t.value));
+        setTotal(sum.toFixed(2));
+    }
+
     useEffect(() => {
         getTransactions(userInfo.token)
         .then(res => {
             setTransactions(res.data);
+            calculateTotal(res.data);
             setLoading(false);
         })
         .catch(err => {
@@ -51,8 +59,16 @@ export default function Transactions() {
                 <button><MdOutlineLogout /></button>
             </Header>
             <Revenue>
-                {transactions.length ? 
-                transactions.map(({date, description, value}, index) => <Movement key={index} date={date} description={description} value={value}/>)
+                {transactions.length ?
+                <>
+                    <List>
+                        {transactions.map(({date, description, value}, index) => <Movement key={index} date={date} description={description} value={value}/>)}
+                    </List>
+                    <Total total={total}>
+                        <span>SALDO</span>
+                        <span>{String(total).replace('.',',')}</span>
+                    </Total>
+                </>
                 :
                 <EmptyMsg>
                 Não há registros de entrada ou saída
@@ -73,6 +89,35 @@ export default function Transactions() {
         </Wrapper>
     );
 }
+
+const List = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 10px;
+    overflow-y: scroll;
+    padding: 20px 12px 40px 12px;
+`;
+
+const Total = styled.p`
+    background: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 17px;
+    line-height: 20px;
+    padding: 10px 12px 10px 12px;
+    & span:first-child {
+        font-weight: 700;
+    }
+    & span:last-child {
+        color: ${({total}) => total > 0 ? `green` : `#C70000`};
+    }
+`;
 
 const MakeTransactions = styled.div`
     margin-top: 12px;
@@ -119,9 +164,7 @@ const Revenue = styled.section`
     background: #FFFFFF;
     border-radius: 5px;
     position: relative;
-    padding: 20px 12px 40px 12px;
     gap: 10px;
-    overflow-y: scroll;
 `;
 
 const Wrapper = styled.main`

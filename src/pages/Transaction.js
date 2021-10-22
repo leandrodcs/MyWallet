@@ -39,12 +39,18 @@ export default function Entries() {
         })
     }
 
-    function updateTransaction(e) {
-        console.log(e);
+    function updateTransactionValue(e) {
         if(e.target.value.length > 10) {
             return;
         }
         setValue(e.target.value);
+    }
+
+    function updateTransactionDescription(e) {
+        if(e.target.value.length > 80) {
+            return;
+        }
+        setDescription(e.target.value);
     }
 
     return (
@@ -54,8 +60,8 @@ export default function Entries() {
                 <p>Nova {incomeOrOutcome?`entrada`:`saída`}</p>
             </Header>
             <Form onSubmit={declareTransaction}>
-                <Input load={loading} type="number" value={value} onChange={updateTransaction} placeholder="Valor"/>
-                <Input load={loading} type="text" value={description} onChange={e => setDescription(e.target.value)} placeholder="Descrição"/>
+                <Input load={loading} type="number" value={value} onChange={updateTransactionValue} placeholder="Valor"/>
+                <Input load={loading} type="text" value={description} onChange={updateTransactionDescription} placeholder="Descrição"/>
                 <Button load={loading} type="submit">Salvar {incomeOrOutcome?`entrada`:`saída`}</Button>
             </Form>
 

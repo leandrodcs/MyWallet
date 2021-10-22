@@ -17,8 +17,13 @@ export default function Movement({date, description, value}) {
 const Item = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
     line-height: 25px;
     font-size: 16px;
+    & p {
+        display: flex;
+        align-items: center;
+    }
 `;
 
 const Date = styled.span`
@@ -27,7 +32,10 @@ const Date = styled.span`
 
 const Description = styled.span`
     color: #000000;
+    width: 180px;
     margin-left: 10px;
+    overflow: hidden;
+    word-wrap: break-word;
 `;
 
 const Price = styled.span`
