@@ -1,7 +1,7 @@
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Transaction from "./pages/Transaction";
 import Transactions from "./pages/Transactions";
+import Home from "./pages/Home";
 
 import { createGlobalStyle } from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -23,8 +23,8 @@ export default function App() {
           <Route exact path="/" render={() => <SignIn setUser={setUser}/>}/>
           <Route exact path="/sign-up" render={() => <SignUp />}/>
           <TransactionContext.Provider value={{incomeOrOutcome, setIncomeOrOutcome}}>
+            <Route exact path="/home" render={() => <Home />}/>
             <Route exact path="/transactions" render={() => <Transactions />}/>
-            <Route exact path="/transaction" render={() => <Transaction />}/>
           </TransactionContext.Provider>
         </Switch>
       </Router>

@@ -44,10 +44,15 @@ function postTransaction(token, description, value) {
     return axios.post(`${BASIC_URL}/transactions`, body, createConfig(token));
 }
 
+function requestTransactionRemoval(id, token) {
+    return axios.delete(`${BASIC_URL}/transactions`, {headers: {Authorization: `Bearer ${token}`}, data: {id}});
+}
+
 export {
     registerUser,
     postLoginInfo,
     getTransactions,
     postTransaction,
     signOut,
+    requestTransactionRemoval,
 }

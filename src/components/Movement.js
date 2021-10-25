@@ -1,10 +1,27 @@
+import { useContext } from "react/cjs/react.development";
 import styled from "styled-components";
+import UserContext from "../contexts/UserContext";
+import { requestTransactionRemoval } from "../service/service";
 
-export default function Movement({date, description, value}) {
+export default function Movement({id, date, description, value, update, setUpdate}) {
     const formatedDate = date.split(`T`)[0].split(`-`)[2] + `/` + date.split(`T`)[0].split(`-`)[1];
     const formatedValue = String(value).replace(`.`,`,`);
+    const userInfo = useContext(UserContext);
+
+    function deleteTransaction() {
+        if(!window.confirm("Tem certeza que deseja remover esta transação?")) {
+            return;
+        }
+        requestTransactionRemoval(id, userInfo.token)
+        .then(res => {
+            setUpdate(!update);
+        })
+        .catch(err => {
+            alert(err.response.data);
+        })
+    }
     return (
-        <Item>
+        <Item onClick={deleteTransaction}>
             <p>
                 <Date>{formatedDate}</Date>
                 <Description>{description}</Description>
@@ -20,6 +37,8 @@ const Item = styled.div`
     align-items: center;
     line-height: 25px;
     font-size: 16px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
     & p {
         display: flex;
         align-items: center;
