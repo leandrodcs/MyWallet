@@ -1,6 +1,6 @@
 import Input from "../components/Input";
 import Button from "../components/Button";
-import Title from "../components/SignInUpstyles/Title";
+import Title from "../components/Title";
 import Form from "../components/Form";
 
 import { Link } from "react-router-dom";
@@ -25,7 +25,6 @@ export default function SignIn({setUser}) {
 
     function login(e) {
         if (e) e.preventDefault();
-        if(!email && !password) return;
         setLoading(true);
         postLoginInfo(email, password)
         .then(res => {
@@ -41,6 +40,7 @@ export default function SignIn({setUser}) {
     }
 
     useEffect(() => {
+        if(!email && !password) return;
         login();
     }, []);
 

@@ -7,8 +7,8 @@ const Button = styled.button`
         background: #A328D6;
         color: #FFFFFF;
         font-weight: 700;
-        pointer-events: ${props => props.loading ? `none` : `initial`};
-        opacity: ${props => props.loading ? `0.7` : `1`};
+        pointer-events: ${props => props.load ? `none` : `initial`};
+        opacity: ${props => props.load ? `0.7` : `1`};
         
 `;
 

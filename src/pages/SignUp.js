@@ -1,6 +1,6 @@
 import Input from "../components/Input";
 import Button from "../components/Button";
-import Title from "../components/SignInUpstyles/Title";
+import Title from "../components/Title";
 import Form from "../components/Form";
 
 import { Link } from "react-router-dom";

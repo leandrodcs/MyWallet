@@ -10,6 +10,7 @@ const Input = styled.input`
     color: #000000;
     font-size: 20px;
     padding: 0 15px 0 15px;
+    font-family: 'Raleway', sans-serif;
 `;
 
 export default Input;
