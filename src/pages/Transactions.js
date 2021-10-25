@@ -1,7 +1,6 @@
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Form from "../components/Form";
-
 import { useContext, useState } from "react";
 import { MdOutlineLogout } from 'react-icons/md';
 import TransactionContext from "../contexts/TransactionContext";
@@ -9,6 +8,7 @@ import UserContext from "../contexts/UserContext";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { postTransaction } from "../service/service";
+import Swal from 'sweetalert2'
 
 export default function Transactions() {
     const {incomeOrOutcome} = useContext(TransactionContext);
@@ -34,7 +34,10 @@ export default function Transactions() {
             setLoading(false);
         })
         .catch(err => {
-            alert(err.response.data);
+            Swal.fire({
+                icon: 'error',
+                text: err.response.data,
+            });
             setLoading(false);
         })
     }

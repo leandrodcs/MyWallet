@@ -2,13 +2,13 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import Form from "../components/Form";
-
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { registerUser } from "../service/service";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import Loader from "react-loader-spinner";
+import Swal from 'sweetalert2'
 
 export default function SignUp() {
     const [name, setName] = useState("");
@@ -21,7 +21,11 @@ export default function SignUp() {
     function register(e) {
         e.preventDefault();
         if(password !== confirmPassword) {
-            return alert("Os campos da senha devem ser iguais, tente novamente.");
+            Swal.fire({
+                icon: 'error',
+                text: "Os campos da senha devem ser iguais, tente novamente.",
+            })
+            return;
         }
         setLoading(true);
 
@@ -33,7 +37,10 @@ export default function SignUp() {
             setLoading(false);
         })
         .catch(err => {
-            alert(err.response.data);
+            Swal.fire({
+                icon: 'error',
+                text: err.response.data,
+            });
             setLoading(false);
         });
     }

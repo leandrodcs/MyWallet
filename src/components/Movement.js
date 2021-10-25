@@ -2,6 +2,7 @@ import { useContext } from "react/cjs/react.development";
 import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
 import { requestTransactionRemoval } from "../service/service";
+import Swal from 'sweetalert2'
 
 export default function Movement({id, date, description, value, update, setUpdate}) {
     const formatedDate = date.split(`T`)[0].split(`-`)[2] + `/` + date.split(`T`)[0].split(`-`)[1];
@@ -9,16 +10,29 @@ export default function Movement({id, date, description, value, update, setUpdat
     const userInfo = useContext(UserContext);
 
     function deleteTransaction() {
-        if(!window.confirm("Tem certeza que deseja remover esta transação?")) {
-            return;
-        }
-        requestTransactionRemoval(id, userInfo.token)
-        .then(res => {
-            setUpdate(!update);
-        })
-        .catch(err => {
-            alert(err.response.data);
-        })
+        Swal.fire({
+            icon: 'warning',
+            title: "Tem certeza que quer excluir essa transação?",
+            showConfirmButton: true,
+            showDenyButton: true,
+            confirmButtonText: "Sim",
+            denyButtonText: "Não",
+        }).then((result) => {
+            if(result.isConfirmed) {
+                requestTransactionRemoval(id, userInfo.token)
+                .then(res => {
+                    setUpdate(!update);
+                })
+                .catch(err => {
+                    Swal.fire({
+                        icon: 'error',
+                        text: err.response.data,
+                    });
+                });
+            } else if(result.isDenied) {
+                return;
+            }
+        });
     }
     return (
         <Item onClick={deleteTransaction}>

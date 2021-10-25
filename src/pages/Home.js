@@ -8,6 +8,7 @@ import { getTransactions, signOut } from "../service/service";
 import UserContext from "../contexts/UserContext";
 import Movement from "../components/Movement";
 import Loader from "react-loader-spinner";
+import Swal from 'sweetalert2'
 
 export default function Home() {
     const [transactions, setTransactions] = useState([]);
@@ -35,7 +36,10 @@ export default function Home() {
             history.push(`/`);
         })
         .catch(err => {
-            alert(err.response.data);
+            Swal.fire({
+                icon: 'error',
+                text: err.response.data,
+            });
         });
     }
 
@@ -53,7 +57,10 @@ export default function Home() {
             setLoading(false);
         })
         .catch(err => {
-            alert(err.response.data);
+            Swal.fire({
+                icon: 'error',
+                text: err.response.data,
+            });
             setLoading(false);
         })
     }, [userInfo.token, update]);
