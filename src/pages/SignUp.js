@@ -32,7 +32,10 @@ export default function SignUp() {
 
         registerUser(name, email, password)
         .then(res => {
-            alert("Seu cadastro foi realizado com sucesso!");
+            Swal.fire({
+                icon: 'success',
+                text: "Seu cadastro foi realizado com sucesso!",
+            });
             history.push(`/`);
             setLoading(false);
         })
