@@ -25,6 +25,7 @@ export default function SignIn({setUser}) {
 
     function login(e) {
         if (e) e.preventDefault();
+        if(!email && !password) return;
         setLoading(true);
         postLoginInfo(email, password)
         .then(res => {
@@ -40,7 +41,6 @@ export default function SignIn({setUser}) {
     }
 
     useEffect(() => {
-        if(!email && !password) return;
         login();
     }, []);
 

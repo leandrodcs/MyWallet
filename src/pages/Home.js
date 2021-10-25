@@ -66,7 +66,6 @@ export default function Home() {
             </>
         )
     }
-    console.log(String(total).replace('.',',').split(`-`)[1]);
     return (
         <Wrapper>
             <Header>
@@ -103,7 +102,6 @@ export default function Home() {
 
                 </button>
             </MakeTransactions>
-
         </Wrapper>
     );
 }
