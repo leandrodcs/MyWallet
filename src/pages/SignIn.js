@@ -24,6 +24,7 @@ export default function SignIn({setUser}) {
         localStorage.setItem("name", userInfoToStore.name);
       }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     function login(e) {
         if (e) e.preventDefault();
         setLoading(true);
