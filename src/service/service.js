@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASIC_URL = process.env.REACT_APP_API_URL === "prod" ? "https://gratibox-back.herokuapp.com" : "http://localhost:4000";
+const BASIC_URL = process.env.REACT_APP_API_URL === "prod" ? "https://mywallet-server.herokuapp.com" : "http://localhost:4000";
 
 function createConfig(token) {
     const config = {
