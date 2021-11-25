@@ -9,7 +9,7 @@ const Button = styled.button`
         font-weight: 700;
         pointer-events: ${props => props.load ? `none` : `initial`};
         opacity: ${props => props.load ? `0.7` : `1`};
-        
+        cursor: pointer;
 `;
 
 export default Button;

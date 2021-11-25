@@ -8,7 +8,8 @@ import UserContext from "../contexts/UserContext";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { postTransaction } from "../service/service";
-import Swal from 'sweetalert2'
+import { sendAlert } from "../components/Alerts";
+import { useEffect } from "react/cjs/react.development";
 
 export default function Transactions() {
     const {incomeOrOutcome} = useContext(TransactionContext);
@@ -22,6 +23,12 @@ export default function Transactions() {
         history.push(`/home`);
     }    
 
+    useEffect(() => {
+        if(!userInfo.token) {
+            history.push('/');
+        }
+    })
+
     function declareTransaction(e) {
         e.preventDefault();
         setLoading(true);
@@ -34,10 +41,7 @@ export default function Transactions() {
             setLoading(false);
         })
         .catch(err => {
-            Swal.fire({
-                icon: 'error',
-                text: err.response.data,
-            });
+            sendAlert('error', '', err.response.data);
             setLoading(false);
         })
     }

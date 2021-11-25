@@ -8,7 +8,7 @@ import { getTransactions, signOut } from "../service/service";
 import UserContext from "../contexts/UserContext";
 import Movement from "../components/Movement";
 import Loader from "react-loader-spinner";
-import Swal from 'sweetalert2'
+import { sendAlert } from "../components/Alerts";
 
 export default function Home() {
     const [transactions, setTransactions] = useState([]);
@@ -17,7 +17,7 @@ export default function Home() {
     const [update, setUpdate] = useState(false);
     const history = useHistory();
     const {setIncomeOrOutcome} = useContext(TransactionContext);
-    const userInfo = useContext(UserContext);
+    const user = useContext(UserContext);
 
     function relocate(whichTransaction) {
         if(whichTransaction) {
@@ -29,17 +29,20 @@ export default function Home() {
         history.push(`/transactions`);
     }
 
-    function logOff() {
-        signOut(userInfo.token)
+    useEffect(() => {
+        if(!user.token) {
+            history.push('/');
+        }
+    }, [user.token, history])
+
+    function signOutHandler() {
+        signOut(user.token)
         .then(res => {
             localStorage.clear();
             history.push(`/`);
         })
         .catch(err => {
-            Swal.fire({
-                icon: 'error',
-                text: err.response.data,
-            });
+            sendAlert('error', '', err.response.data);
         });
     }
 
@@ -50,20 +53,17 @@ export default function Home() {
     }
 
     useEffect(() => {
-        getTransactions(userInfo.token)
+        getTransactions(user.token)
         .then(res => {
             setTransactions(res.data);
             calculateTotal(res.data);
             setLoading(false);
         })
         .catch(err => {
-            Swal.fire({
-                icon: 'error',
-                text: err.response.data,
-            });
+            sendAlert('error', '', err.response.data);
             setLoading(false);
         })
-    }, [userInfo.token, update]);
+    }, [user.token, update]);
 
     if(loading) {
         return (
@@ -76,8 +76,8 @@ export default function Home() {
     return (
         <Wrapper>
             <Header>
-                <p>Olá, {userInfo.name}</p>
-                <button onClick={logOff}><MdOutlineLogout /></button>
+                <p>Olá, {user.name}</p>
+                <button onClick={signOutHandler}><MdOutlineLogout /></button>
             </Header>
             <Revenue>
                 {transactions.length ?

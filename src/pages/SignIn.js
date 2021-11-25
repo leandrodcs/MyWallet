@@ -5,54 +5,39 @@ import Form from "../components/Form";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { postLoginInfo } from "../service/service";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router";
 import Loader from "react-loader-spinner";
-import Swal from 'sweetalert2'
+import { sendAlert } from "../components/Alerts";
 
 
-export default function SignIn({setUser}) {
-    const [email, setEmail] = useState(localStorage.getItem("email") || "");
-    const [password, setPassword] = useState(localStorage.getItem("password") || "");
+export default function SignIn({setUser, user}) {
+    const [email, setEmail] = useState(user.email || "");
+    const [password, setPassword] = useState(user.password || "");
     const [loading, setLoading] = useState(false);
     const history = useHistory();
 
-    function saveLogInInfo(userInfoToStore) {
-        localStorage.setItem("email", email);
-        localStorage.setItem("password", password);
-        localStorage.setItem("token", userInfoToStore.token);
-        localStorage.setItem("name", userInfoToStore.name);
-      }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    function login(e) {
+    function loginHandler(e) {
         if (e) e.preventDefault();
         setLoading(true);
         postLoginInfo(email, password)
         .then(res => {
+            console.log(res.data);
             setUser(res.data);
             history.push(`/home`);
             setLoading(false);
-            saveLogInInfo(res.data);
+            localStorage.setItem("user", JSON.stringify(res.data));
         })
         .catch(err => {
-            Swal.fire({
-                icon: 'error',
-                text: err.response.data,
-              })
+            sendAlert('error', '', err.response.data)
             setLoading(false);
         });
     }
 
-    useEffect(() => {
-        if(!email && !password) return;
-        login();
-    }, []);
-
     return (
         <Wrapper>
             <Title>MyWallet</Title>
-            <Form onSubmit={login}>
+            <Form onSubmit={loginHandler}>
                 <Input load={loading} type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="E-mail" />
                 <Input load={loading} type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha" />
                 <Button load={loading} type="submit">{loading ? <Loader type="ThreeDots" color="#FFFFFF" height={13} /> : `Entrar`}</Button>
