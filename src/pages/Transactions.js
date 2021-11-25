@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 import { postTransaction } from "../service/service";
 import { sendAlert } from "../components/Alerts";
+import { useEffect } from "react/cjs/react.development";
 
 export default function Transactions() {
     const {incomeOrOutcome} = useContext(TransactionContext);
@@ -21,6 +22,12 @@ export default function Transactions() {
     function relocate() {
         history.push(`/home`);
     }    
+
+    useEffect(() => {
+        if(!userInfo.token) {
+            history.push('/');
+        }
+    })
 
     function declareTransaction(e) {
         e.preventDefault();

@@ -10,7 +10,7 @@ import UserContext from "./contexts/UserContext";
 import TransactionContext from "./contexts/TransactionContext";
 
 export default function App() {
-  const [user, setUser] = useState(localStorage.getItem("user") || {});
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || {});
   const [incomeOrOutcome, setIncomeOrOutcome] = useState(null);
   return (
     <UserContext.Provider value={user}>
