@@ -5,7 +5,7 @@ import Form from "../components/Form";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { postLoginInfo } from "../service/service";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router";
 import Loader from "react-loader-spinner";
 import Swal from 'sweetalert2'
@@ -17,11 +17,7 @@ export default function SignIn({setUser, user}) {
     const [loading, setLoading] = useState(false);
     const history = useHistory();
 
-    function saveLogInInfo(userInfoToStore) {
-        localStorage.setItem("user", userInfoToStore);
-    }
-
-    function login(e) {
+    function loginHandler(e) {
         if (e) e.preventDefault();
         setLoading(true);
         postLoginInfo(email, password)
@@ -30,7 +26,7 @@ export default function SignIn({setUser, user}) {
             setUser(res.data);
             history.push(`/home`);
             setLoading(false);
-            saveLogInInfo(res.data);
+            localStorage.setItem("user", res.data);
         })
         .catch(err => {
             Swal.fire({
@@ -41,15 +37,10 @@ export default function SignIn({setUser, user}) {
         });
     }
 
-    useEffect(() => {
-        if(!user) return;
-        login();
-    }, []);
-
     return (
         <Wrapper>
             <Title>MyWallet</Title>
-            <Form onSubmit={login}>
+            <Form onSubmit={loginHandler}>
                 <Input load={loading} type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="E-mail" />
                 <Input load={loading} type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Senha" />
                 <Button load={loading} type="submit">{loading ? <Loader type="ThreeDots" color="#FFFFFF" height={13} /> : `Entrar`}</Button>
