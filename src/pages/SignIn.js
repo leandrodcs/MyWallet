@@ -11,25 +11,22 @@ import Loader from "react-loader-spinner";
 import Swal from 'sweetalert2'
 
 
-export default function SignIn({setUser}) {
-    const [email, setEmail] = useState(localStorage.getItem("email") || "");
-    const [password, setPassword] = useState(localStorage.getItem("password") || "");
+export default function SignIn({setUser, user}) {
+    const [email, setEmail] = useState(user.email || "");
+    const [password, setPassword] = useState(user.password || "");
     const [loading, setLoading] = useState(false);
     const history = useHistory();
 
     function saveLogInInfo(userInfoToStore) {
-        localStorage.setItem("email", email);
-        localStorage.setItem("password", password);
-        localStorage.setItem("token", userInfoToStore.token);
-        localStorage.setItem("name", userInfoToStore.name);
-      }
+        localStorage.setItem("user", userInfoToStore);
+    }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     function login(e) {
         if (e) e.preventDefault();
         setLoading(true);
         postLoginInfo(email, password)
         .then(res => {
+            console.log(res.data);
             setUser(res.data);
             history.push(`/home`);
             setLoading(false);
@@ -45,7 +42,7 @@ export default function SignIn({setUser}) {
     }
 
     useEffect(() => {
-        if(!email && !password) return;
+        if(!user) return;
         login();
     }, []);
 
