@@ -8,7 +8,7 @@ import { registerUser } from "../service/service";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import Loader from "react-loader-spinner";
-import Swal from 'sweetalert2'
+import { sendAlert } from "../components/Alerts";
 
 export default function SignUp() {
     const [name, setName] = useState("");
@@ -21,10 +21,7 @@ export default function SignUp() {
     function register(e) {
         e.preventDefault();
         if(password !== confirmPassword) {
-            Swal.fire({
-                icon: 'error',
-                text: "Os campos da senha devem ser iguais, tente novamente.",
-            })
+            sendAlert('error', '', 'Os campos da senha devem ser iguais, tente novamente.')
             return;
         }
         setLoading(true);
@@ -32,18 +29,12 @@ export default function SignUp() {
 
         registerUser(name, email, password)
         .then(res => {
-            Swal.fire({
-                icon: 'success',
-                text: "Seu cadastro foi realizado com sucesso!",
-            });
+            sendAlert('success', '', 'Seu cadastro foi realizado com sucesso!')
             history.push(`/`);
             setLoading(false);
         })
         .catch(err => {
-            Swal.fire({
-                icon: 'error',
-                text: err.response.data,
-            });
+            sendAlert('error', '', err.response.data)
             setLoading(false);
         });
     }

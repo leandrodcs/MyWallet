@@ -8,7 +8,7 @@ import { postLoginInfo } from "../service/service";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import Loader from "react-loader-spinner";
-import Swal from 'sweetalert2'
+import { sendAlert } from "../components/Alerts";
 
 
 export default function SignIn({setUser, user}) {
@@ -29,10 +29,7 @@ export default function SignIn({setUser, user}) {
             localStorage.setItem("user", res.data);
         })
         .catch(err => {
-            Swal.fire({
-                icon: 'error',
-                text: err.response.data,
-              })
+            sendAlert('error', '', err.response.data)
             setLoading(false);
         });
     }
