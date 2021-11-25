@@ -8,7 +8,7 @@
   <h3 align="center">My Wallet</h3>
 
   <p align="center">
-    Helping you to be more grateful!
+    Keep track of your expenses.
     <br />
     <a href="https://github.com/leandrodcs/MyWallet-front"><strong>Explore the docs »</strong></a>
     <br />
