@@ -8,7 +8,6 @@ import { getTransactions, signOut } from "../service/service";
 import UserContext from "../contexts/UserContext";
 import Movement from "../components/Movement";
 import Loader from "react-loader-spinner";
-import Swal from 'sweetalert2'
 import { sendAlert } from "../components/Alerts";
 
 export default function Home() {

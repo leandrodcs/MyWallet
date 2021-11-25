@@ -2,7 +2,6 @@ import { useContext } from "react/cjs/react.development";
 import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
 import { requestTransactionRemoval } from "../service/service";
-import Swal from 'sweetalert2'
 import { sendAlert, sendConfirm } from "./Alerts";
 
 export default function Movement({id, date, description, value, update, setUpdate}) {
