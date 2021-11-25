@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/leandrodcs/MyWallet-front">
+    <img src="https://w7.pngwing.com/pngs/596/619/png-transparent-computer-icons-digital-wallet-coin-purse-reward-purple-violet-text-thumbnail.png" alt="Logo" width="100px" height="auto">
+  </a>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  <h3 align="center">My Wallet</h3>
 
-## Available Scripts
+  <p align="center">
+    Helping you to be more grateful!
+    <br />
+    <a href="https://github.com/leandrodcs/MyWallet-front"><strong>Explore the docs »</strong></a>
+    <br />
+    <a href="https://my-wallet-sepia.vercel.app/">View Demo</a>
+    <br />
+  </p>
+</p>
 
-In the project directory, you can run:
+<!-- GETTING STARTED -->
+## Getting Started
 
-### `npm start`
+To get a local copy up and running follow these simple steps.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Prerequisites
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+This is an example of how to list things you need to use the software and how to install them.
+* npm
+```sh
+npm install npm@latest -g
+```
 
-### `npm test`
+### Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Create a root project folder named gratibox for semantics
+```sh
+mkdir mywallet
+```
+2. Clone the front-end repo (within the /gratibox folder)
+```sh
+git clone https://github.com/leandrodcs/MyWallet-front.git
+```
+3. Install NPM packages for the front-end repo
+```sh
+npm install
+```
+4. Clone the back-end repo (within the /gratibox folder)
+```sh
+git clone https://github.com/leandrodcs/MyWallet-back.git
+```
+5. Install NPM packages for the back-end repo
+```sh
+npm install
+```
+6. Create a database using the command below via postgres
+```sh
+CREATE DATABASE mywallet
+```
+7. Inside the created database, create tables using the dump included in the back-end repo <a href="https://github.com/leandrodcs/gratibox-back/blob/main/dump.sql">here</a>.
 
-### `npm run build`
+8. Connect to the created database using the .env.example included in the back-end repo <a href="https://github.com/leandrodcs/MyWallet-back/blob/main/.env.example">here</a>, to make it easy, name your .env file like so ".env.dev".
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Running
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. On the back-end repo run the server connected to the database you just created using the following command.
+```sh
+npm run dev
+```
+2. Now on the fron-end repo use the same command you just used on step 8 and you should be good.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<!-- USAGE EXAMPLES -->
+## Usage
 
-### `npm run eject`
+Visitores need to `sign-up` and later `sign-in` to be able to use mywallet.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Once signed-in, users can add their earnings or expenses on the buttons located at the bottom of the homepage.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Once a value is added, it can now be viewed together with your current balance at the homepage.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<!-- Developer -->
+## Developer
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* [Leandro D. C. Schmidt ](https://github.com/leandrodcs)
