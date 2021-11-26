@@ -1,5 +1,5 @@
-import { useContext } from "react/cjs/react.development";
 import styled from "styled-components";
+import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 import { requestTransactionRemoval } from "../service/service";
 import { sendAlert, sendConfirm } from "./Alerts";

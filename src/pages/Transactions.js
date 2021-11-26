@@ -9,7 +9,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 import { postTransaction } from "../service/service";
 import { sendAlert } from "../components/Alerts";
-import { useEffect } from "react/cjs/react.development";
+import { useEffect } from "react";
 
 export default function Transactions() {
     const {incomeOrOutcome} = useContext(TransactionContext);
