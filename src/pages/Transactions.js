@@ -1,6 +1,7 @@
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Form from "../components/Form";
+import Loader from "react-loader-spinner";
 import { useContext, useState } from "react";
 import { MdOutlineLogout } from 'react-icons/md';
 import TransactionContext from "../contexts/TransactionContext";
@@ -69,7 +70,7 @@ export default function Transactions() {
             <Form onSubmit={declareTransaction}>
                 <Input load={loading} type="number" value={value} onChange={updateTransactionValue} placeholder="Valor"/>
                 <Input load={loading} type="text" value={description} onChange={updateTransactionDescription} placeholder="Descrição"/>
-                <Button load={loading} type="submit">Salvar {incomeOrOutcome?`entrada`:`saída`}</Button>
+                <Button load={loading} type="submit">{loading ? <Loader type="ThreeDots" color="#FFFFFF" height={13} /> :incomeOrOutcome?`Salvar entrada`:`Salvar saída`}</Button>
             </Form>
 
         </Wrapper>
