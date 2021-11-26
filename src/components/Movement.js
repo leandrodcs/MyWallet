@@ -7,13 +7,13 @@ import { sendAlert, sendConfirm } from "./Alerts";
 export default function Movement({id, date, description, value, update, setUpdate}) {
     const formatedDate = date.split(`T`)[0].split(`-`)[2] + `/` + date.split(`T`)[0].split(`-`)[1];
     const formatedValue = String(value).replace(`.`,`,`);
-    const userInfo = useContext(UserContext);
+    const user = useContext(UserContext);
 
     function deleteTransaction() {
         sendConfirm('warning', '', 'Quer remover essa transação?')
         .then((result) => {
             if(result.isConfirmed) {
-                requestTransactionRemoval(id, userInfo.token)
+                requestTransactionRemoval(id, user.token)
                 .then(res => {
                     setUpdate(!update);
                 })

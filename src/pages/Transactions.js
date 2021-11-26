@@ -13,7 +13,7 @@ import { useEffect } from "react/cjs/react.development";
 
 export default function Transactions() {
     const {incomeOrOutcome} = useContext(TransactionContext);
-    const userInfo = useContext(UserContext);
+    const user = useContext(UserContext);
     const [value, setValue] = useState("");
     const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false);
@@ -24,16 +24,16 @@ export default function Transactions() {
     }    
 
     useEffect(() => {
-        if(!userInfo.token) {
+        if(!user.token) {
             history.push('/');
         }
-    })
+    }, [user.token, history])
 
     function declareTransaction(e) {
         e.preventDefault();
         setLoading(true);
         const formatedValue = incomeOrOutcome ? value : value * -1;
-        postTransaction(userInfo.token, description, formatedValue)
+        postTransaction(user.token, description, formatedValue)
         .then(res => {
             setValue("");
             setDescription("");
