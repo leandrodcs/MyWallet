@@ -26,7 +26,7 @@ export default function SignIn({setUser, user}) {
             setUser(res.data);
             history.push(`/home`);
             setLoading(false);
-            localStorage.setItem("user", JSON.stringify(res.data));
+            localStorage.setItem("user", JSON.stringify({...res.data, password}));
         })
         .catch(err => {
             sendAlert('error', '', err.response.data)

@@ -71,7 +71,7 @@ const GlobalReset = createGlobalStyle`
   a:link,
   a:hover,
   a:active {
-  color: inherit;
+  color: #ffffff;
   text-decoration: none;
   }
   body {

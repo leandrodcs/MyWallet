@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/leandrodcs/MyWallet-front">
-    <img src="https://w7.pngwing.com/pngs/596/619/png-transparent-computer-icons-digital-wallet-coin-purse-reward-purple-violet-text-thumbnail.png" alt="Logo" width="100px" height="auto">
+      <img src="/public/TrackIt.gif" align="center" />
   </a>
 
   <h3 align="center">My Wallet</h3>
