@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/leandrodcs/MyWallet-front">
-      <img src="/public/TrackIt.gif" align="center" />
+      <img src="./public/mywalletgif.gif" align="center" />
   </a>
 
   <h3 align="center">My Wallet</h3>
