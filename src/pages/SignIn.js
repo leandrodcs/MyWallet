@@ -22,7 +22,6 @@ export default function SignIn({setUser, user}) {
         setLoading(true);
         postLoginInfo(email, password)
         .then(res => {
-            console.log(res.data);
             setUser(res.data);
             history.push(`/home`);
             setLoading(false);
